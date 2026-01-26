@@ -1,16 +1,20 @@
 h3.code-title {
 	position: absolute;
-	padding: 0 0.5em;
+	padding: 0.3rem 0.3rem;
 	color: var(--shiki);
-	border-left: solid 6px #168edf;
-	border-bottom: solid 1px #168edf;
-	border-radius: 5px 0 0 5px;
 	z-index: 10;
-	top: -2em;
-	left: 0;
+	top: -2.2em;
+	left: 1em;
 	transition: opacity 0.3s ease-in-out;
 	opacity: 0.8;
-	font-size: 80%;
+	font-size: 90%;
 	letter-spacing: 0.05em;
-	/*mix-blend-mode:  exclusion;*/
+	width: fit-content;
+
+	border-radius: 0.25rem;
+	background-color: var(--color-bluishTwo-400);
+	&:where(.dark, .dark *) {
+		background-color: var(--color-darkPrimary-240);
+	}
+	line-height: normal;
 }
