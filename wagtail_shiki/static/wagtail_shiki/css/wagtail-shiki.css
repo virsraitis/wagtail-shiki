@@ -14,6 +14,9 @@ div.shiki-wrapper:focus-within>button.copy-button {
 }
 
 div.shiki-wrapper>button.copy-button {
+	display: flex;
+	align-items: center;
+	gap: 0.25em;
 	position: absolute;
 	z-index: 10;
 	top: .3em;
@@ -33,6 +36,7 @@ div.shiki-wrapper>button.copy-button {
 	font-size: 1em;
 	padding: 0 .5em;
 	background: rgba(224, 224, 224, 0.2);
+	height: 2em;
 }
 
 /* code body */
@@ -42,7 +46,7 @@ div.shiki-wrapper:hover>h3.code-title {
 
 pre.shiki {
 	position: relative;
-	padding: 0.5em 1.5em 0.5em 1.5em;
+	padding: 0.5em 1.0em 0.5em 0.5em;
 	border-radius: 8px;
 	font-size: 100%;
 	line-height: 24px;
@@ -56,8 +60,8 @@ pre.shiki.line-numbers {
 pre.shiki.line-numbers .line::before {
 	content: counter(linenumber);
 	counter-increment: linenumber;
-	width: 2.5rem;
-	margin-right: 1.5rem;
+	width: 1.5rem;
+	margin-right: 1.0rem;
 	display: inline-block;
 	text-align: right;
 	color: inherit;
@@ -97,21 +101,21 @@ html.dark .code-title {
 	}
 
 	pre.shiki {
-		margin: 50px 0;
+		margin: 0.5em 0;
 	}
 }
 
 @media (min-width: 1024px) {
 	div.shiki-wrapper>button.copy-button {
-		margin: 0 5%;
+		margin: 0;
 	}
 
 	h3.code-title {
-		margin: 0 5%;
+		margin: 0;
 	}
 
 	pre.shiki {
-		margin: 50px 5%;
+		margin: 1em 0;
 	}
 }
 
