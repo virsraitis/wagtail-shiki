@@ -1,17 +1,15 @@
 import wagtail
-
+from django.conf import settings
 from django.forms import Media
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-
 from wagtail.blocks import (
     BooleanBlock,
+    CharBlock,
+    ChoiceBlock,
+    IntegerBlock,
     StructBlock,
     TextBlock,
-    ChoiceBlock,
-    CharBlock,
-    IntegerBlock,
 )
 from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.telepath import register
@@ -37,8 +35,7 @@ class CodeBlock(StructBlock):
         else:
             local_blocks = local_blocks.copy()
 
-        language_choices, language_default = self.get_language_choice_list(
-            **kwargs)
+        language_choices, language_default = self.get_language_choice_list(**kwargs)
 
         local_blocks.extend(
             [
@@ -48,20 +45,51 @@ class CodeBlock(StructBlock):
                         choices=language_choices,
                         help_text=_("Coding language"),
                         label=_("Language"),
-                        default=language_default or self.get_initial_languge(
-                            language_choices),
+                        default=language_default
+                        or self.get_initial_languge(language_choices),
                         identifier="language",
                     ),
                 ),
-                ("show_line_numbers", BooleanBlock(label=_("Show line numbers"),
-                                                   default=True, required=False, identifier="show_line_number", help_text=_("show if checked."))),
-                ("start_number", IntegerBlock(label=_("Start number"),
-                                              required=False, identifier="start_number", help_text=_("(Optional)."))),
-                ("title", CharBlock(label=_("Title"),
-                                    required=False, identifier="title", help_text=_("Filename, etc. Leave this blank, if you don't need."))),
+                (
+                    "show_line_numbers",
+                    BooleanBlock(
+                        label=_("Show line numbers"),
+                        default=True,
+                        required=False,
+                        identifier="show_line_number",
+                        help_text=_("show if checked."),
+                    ),
+                ),
+                (
+                    "start_number",
+                    IntegerBlock(
+                        label=_("Start number"),
+                        required=False,
+                        identifier="start_number",
+                        help_text=_("(Optional)."),
+                    ),
+                ),
+                (
+                    "title",
+                    CharBlock(
+                        label=_("Title"),
+                        required=False,
+                        identifier="title",
+                        help_text=_(
+                            "Filename, etc. Leave this blank, if you don't need."
+                        ),
+                    ),
+                ),
                 ("code", TextBlock(label=_("Code"), identifier="code")),
-                ("highlight_words", TextBlock(label=_("Highlight Words"),
-                                              required=False, identifier="highlight_words", help_text=_("Decoration definition data.(uneditable)"))),
+                (
+                    "highlight_words",
+                    TextBlock(
+                        label=_("Highlight Words"),
+                        required=False,
+                        identifier="highlight_words",
+                        help_text=_("Decoration definition data.(uneditable)"),
+                    ),
+                ),
             ]
         )
 
@@ -107,8 +135,7 @@ class CodeBlockAdapter(StructBlockAdapter):
     def media(self):
         structblock_media = super().media
         return Media(
-            js=structblock_media._js +
-            ["wagtail_shiki/js/wagtail-shiki-admin.js"],
+            js=structblock_media._js + ["wagtail_shiki/js/wagtail-shiki-admin.js"],
             # ["js/wagtail-shiki-admin.js"],
             css=structblock_media._css,
         )
